@@ -1,7 +1,6 @@
+package structures;
 import java.io.PrintWriter;
 import java.math.BigInteger;
-
-import structures.AssociativeArray;
 import structures.KeyNotFoundException;
 
 /**
