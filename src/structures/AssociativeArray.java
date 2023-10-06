@@ -96,6 +96,15 @@ public class AssociativeArray<K, V> {
       this.expand();
     }
 
+    if (this.hasKey(key)) {
+      try {
+        int j = find(key);
+        this.pairs[j].value = value;
+      } catch (KeyNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+
     for (int i = 0; i <= this.size; i++) {
       if (this.pairs[i] == null) {
         this.pairs[i] = new KVPair<>();
@@ -191,10 +200,11 @@ public class AssociativeArray<K, V> {
    */
   public int find(K key) throws KeyNotFoundException {
     for (int i = 0; i < this.pairs.length; i++) {
+      if (this.pairs[i] == null || this.pairs[i].key == null || this.pairs[i].value == null) {
+        continue;
+      }
       if (this.pairs[i].key.equals(key)) {
         return i;
-      } else {
-        continue;
       }
     }
 
