@@ -1,6 +1,7 @@
 package structures;
 
 import static java.lang.reflect.Array.newInstance;
+import java.security.Key;
 
 /**
  * A basic implementation of Associative Arrays with keys of type K and values of type V.
@@ -56,8 +57,11 @@ public class AssociativeArray<K, V> {
    */
   public AssociativeArray<K, V> clone() {
 
-    AssociativeArray<K, V> associativeArrayClone = new AssociativeArray<>();
-    associativeArrayClone.pairs = this.pairs; 
+    AssociativeArray<K, V> associativeArrayClone = new AssociativeArray<K, V>();
+
+    for (int i = 0; i < this.pairs.length; i++) {
+      associativeArrayClone.pairs[i] = this.pairs[i];
+    }
     associativeArrayClone.size = this.size;
 
     return associativeArrayClone;
@@ -67,7 +71,16 @@ public class AssociativeArray<K, V> {
    * Convert the array to a string.
    */
   public String toString() {
-    return "{}"; // STUB
+
+    String result = "{ ";
+
+    for (int i = 0; i < this.pairs.length; i++) {
+      result = "key" + i + ": " + this.pairs[i].key;
+      result = "value" + i + ": " + this.pairs[i].value;
+    }
+
+    result = result + " }";
+    return result;
   } // toString()
 
   // +----------------+----------------------------------------------
@@ -78,7 +91,21 @@ public class AssociativeArray<K, V> {
    * Set the value associated with key to value. Future calls to get(key) will return value.
    */
   public void set(K key, V value) {
-    // STUB
+    if (this.size >= this.pairs.length) {
+      this.expand();
+    }
+
+    KVPair<K, V> empty = new KVPair<K, V>();
+
+    for (int i = 0; i < this.size; i++) {
+      if (this.pairs[i].key.equals(empty)) {
+        this.pairs[i].key = key;
+        this.pairs[i].value = value;
+        this.size++;
+      } else
+        continue;
+    }
+
   } // set(K,V)
 
   /**
@@ -87,7 +114,14 @@ public class AssociativeArray<K, V> {
    * @throws KeyNotFoundException when the key does not appear in the associative array.
    */
   public V get(K key) throws KeyNotFoundException {
-    return null; // STUB
+
+    for (int i = 0; i < this.pairs.length; i++) {
+      if (this.pairs[i].key == key) {
+        return this.pairs[i].value;
+      }
+    }
+
+    throw new KeyNotFoundException();
   } // get(K)
 
   /**
