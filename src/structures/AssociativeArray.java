@@ -126,8 +126,12 @@ public class AssociativeArray<K, V> {
    */
   public V get(K key) throws KeyNotFoundException {
     for (int i = 0; i < this.pairs.length; i++) {
-      if (this.pairs[i].key == key) {
-        return this.pairs[i].value;
+      if (this.pairs[i] == null || this.pairs[i].key == null || this.pairs[i].value == null) {
+        continue;
+      } else {
+        if (this.pairs[i].key == key) {
+          return this.pairs[i].value;
+        }
       }
     }
 
