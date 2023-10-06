@@ -56,7 +56,6 @@ public class AssociativeArray<K, V> {
    * Create a copy of this AssociativeArray.
    */
   public AssociativeArray<K, V> clone() {
-
     AssociativeArray<K, V> associativeArrayClone = new AssociativeArray<K, V>();
 
     for (int i = 0; i < this.pairs.length; i++) {
@@ -71,7 +70,6 @@ public class AssociativeArray<K, V> {
    * Convert the array to a string.
    */
   public String toString() {
-
     String result = "{ ";
 
     for (int i = 0; i < this.pairs.length; i++) {
@@ -114,7 +112,6 @@ public class AssociativeArray<K, V> {
    * @throws KeyNotFoundException when the key does not appear in the associative array.
    */
   public V get(K key) throws KeyNotFoundException {
-
     for (int i = 0; i < this.pairs.length; i++) {
       if (this.pairs[i].key == key) {
         return this.pairs[i].value;
@@ -128,7 +125,12 @@ public class AssociativeArray<K, V> {
    * Determine if key appears in the associative array.
    */
   public boolean hasKey(K key) {
-    return false; // STUB
+    for (int i = 0; i < this.pairs.length; i++) {
+      if (this.pairs[i].key.equals(key))
+        return true;
+    }
+
+    return false;
   } // hasKey(K)
 
   /**
@@ -136,7 +138,20 @@ public class AssociativeArray<K, V> {
    * exception. If the key does not appear in the associative array, does nothing.
    */
   public void remove(K key) {
-    // STUB
+    if (!this.hasKey(key)) {
+      return;
+    }
+
+    for (int i = 0; i < this.pairs.length; i++) {
+      if(this.pairs[i].key.equals(key)){
+        this.pairs[i].key = null;
+        this.pairs[i].value = null;
+        this.size--;
+      } else {
+        continue;
+      }
+    }
+
   } // remove(K)
 
   /**
