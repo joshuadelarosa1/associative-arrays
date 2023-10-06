@@ -6,7 +6,7 @@ import structures.KeyNotFoundException;
 /**
  * Experiments with our AssociativeArray class.
  *
- * @author Your Name Here
+ * @author Joshua De La Rosa
  * @author Samuel A. Rebelsky
  */
 public class AssociativeArrayExperiments {
@@ -48,6 +48,7 @@ public class AssociativeArrayExperiments {
     try { s2s.get("a"); } catch (Exception e) { }
     try { s2s.get("A"); } catch (Exception e) { }
     s2s.remove("a");
+    System.out.println("i am here");
     s2s.size();
     try { s2s.get("a"); } catch (Exception e) { }
     try { s2s.get("A"); } catch (Exception e) { }

@@ -7,7 +7,7 @@ import java.security.Key;
  * A basic implementation of Associative Arrays with keys of type K and values of type V.
  * Associative Arrays store key/value pairs and permit you to look up values by key.
  *
- * @author Joshua Delarosa
+ * @author Joshua De La Rosa
  * @author Samuel A. Rebelsky
  */
 public class AssociativeArray<K, V> {
@@ -73,8 +73,11 @@ public class AssociativeArray<K, V> {
     String result = "{ ";
 
     for (int i = 0; i < this.pairs.length; i++) {
-      result = "key" + i + ": " + this.pairs[i].key;
-      result = "value" + i + ": " + this.pairs[i].value;
+      if (this.pairs[i] == null) {
+        continue;
+      } else {
+        result = result + "key" + i + ": " + this.pairs[i].value + " ";
+      }
     }
 
     result = result + " }";
@@ -93,16 +96,17 @@ public class AssociativeArray<K, V> {
       this.expand();
     }
 
-    KVPair<K, V> empty = new KVPair<K, V>();
+    for (int i = 0; i <= this.size; i++) {
+      if (this.pairs[i] == null) {
+        this.pairs[i] = new KVPair<>();
 
-    for (int i = 0; i < this.size; i++) {
-      if (this.pairs[i].key.equals(empty)) {
         this.pairs[i].key = key;
         this.pairs[i].value = value;
-        this.size++;
       } else
         continue;
     }
+
+    this.size++;
 
   } // set(K,V)
 
@@ -125,9 +129,14 @@ public class AssociativeArray<K, V> {
    * Determine if key appears in the associative array.
    */
   public boolean hasKey(K key) {
+
     for (int i = 0; i < this.pairs.length; i++) {
-      if (this.pairs[i].key.equals(key))
-        return true;
+      if (this.pairs[i] == null || this.pairs[i].key == null || this.pairs[i].value == null) {
+        continue;
+      } else {
+        if (this.pairs[i].key.equals(key))
+          return true;
+      }
     }
 
     return false;
@@ -143,12 +152,16 @@ public class AssociativeArray<K, V> {
     }
 
     for (int i = 0; i < this.pairs.length; i++) {
-      if (this.pairs[i].key.equals(key)) {
-        this.pairs[i].key = null;
-        this.pairs[i].value = null;
-        this.size--;
-      } else {
+      if (this.pairs[i] == null || this.pairs[i].key == null || this.pairs[i].value == null) {
         continue;
+      } else {
+        if (this.pairs[i].key.equals(key)) {
+          this.pairs[i].key = null;
+          this.pairs[i].value = null;
+          this.size--;
+        } else {
+          continue;
+        }
       }
     }
 
