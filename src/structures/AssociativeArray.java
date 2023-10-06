@@ -143,7 +143,7 @@ public class AssociativeArray<K, V> {
     }
 
     for (int i = 0; i < this.pairs.length; i++) {
-      if(this.pairs[i].key.equals(key)){
+      if (this.pairs[i].key.equals(key)) {
         this.pairs[i].key = null;
         this.pairs[i].value = null;
         this.size--;
@@ -177,7 +177,15 @@ public class AssociativeArray<K, V> {
    * throws an exception.
    */
   public int find(K key) throws KeyNotFoundException {
-    throw new KeyNotFoundException(); // STUB
+    for (int i = 0; i < this.pairs.length; i++) {
+      if (this.pairs[i].key.equals(key)) {
+        return i;
+      } else {
+        continue;
+      }
+    }
+
+    throw new KeyNotFoundException();
   } // find(K)
 
 } // class AssociativeArray
